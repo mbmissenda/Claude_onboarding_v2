@@ -4,12 +4,15 @@ A self-paced, asynchronous skills lab that onboards faculty to the Claude.ai int
 
 The lab orients faculty to *where things are* in Claude — the sidebar, memory, models, projects, artifacts, and more. It does **not** cover how to write prompts; that's a separate lab.
 
+Each station follows a two-part split: an **Iorad "See it" clip** shows *where* something is on screen (no clicking required), and the text below explains *what it does and why*, with an optional prompt to try it in Claude.
+
 ## What's in the page
 
 - **Stations 2–12** as collapsible cards, one concept each. Faculty can work through them in order on a first pass, or reopen any single station later as a reference.
-- **A paste-in prompt** for stations 2–10, each with a one-click Copy button, so faculty learn each feature by using Claude directly.
+- **A "See it" Iorad slot** on stations 2–10 for the visual "where" (you supply the embeds — see below).
+- **A paste-in prompt** for stations 2–10 that faculty select, copy, and paste into Claude to learn each feature by using it directly.
 - **A short reflection field** at every station ("note one thing you learned").
-- **Print-to-PDF support** that force-expands every station — including reflection notes — so a saved PDF is complete and can serve as a completion artifact.
+- **Print-to-PDF support** that force-expands every station — including reflection notes — so a saved PDF is complete and can serve as a completion artifact. (The video slots are hidden in the PDF, but each "Where to look" caption still prints.)
 
 Station 1 (sign-in) is intentionally not included here; it's added directly on the Canvas page above the embed.
 
@@ -41,7 +44,23 @@ Add the sign-in content directly on the Canvas page, then embed the published la
 </iframe>
 ```
 
-Adjust `height` to fit your page. Faculty can also open the published URL directly and use the **Save this lab as a PDF** button.
+Adjust `height` to fit your page. Faculty select and copy each prompt manually, then paste it into Claude. They can also open the published URL directly and use the **Save this lab as a PDF** button.
+
+## Adding your Iorad clips
+
+Stations 2–10 each have a placeholder waiting for an Iorad embed. To add one:
+
+1. In Iorad, open the walk-through and choose **Share → Embed**, and copy the embed code (an `<iframe>`).
+2. In `index.html`, search for the station you want, e.g. `IORAD EMBED — STATION 6`. Each is marked with a clear comment block.
+3. Directly below that comment, replace this placeholder line:
+
+   ```html
+   <p class="seeit-ph">▶ Iorad walk-through goes here — paste this station's embed code.</p>
+   ```
+
+   with your Iorad embed code. Leave the surrounding `<div class="seeit-slot">` tags in place — the page styles the embed to fit automatically.
+
+The station-to-topic map: **2** navigation sidebar · **3** memory & settings · **4** first chat · **5** the + menu · **6** models & effort · **7** voice mode · **8** projects · **9** artifacts · **10** search. Stations **11** (Claude Design) and **12** (Cowork) have no clip by design — they're conceptual heads-ups, not "find this on screen" tasks.
 
 ## Editing the content
 
@@ -51,4 +70,4 @@ Everything lives in `index.html`. Each station is a `<details class="station">` 
 
 - Styling is neutral and clean by default so it can be rebranded to NDMU without reworking the layout.
 - The page has no external dependencies, works offline, and needs no build tools.
-- Print behavior is handled by an `@media print` block plus a small `beforeprint`/`afterprint` script that opens all stations for export and restores their state afterward.# Claude_onboarding_v2
+- Print behavior is handled by an `@media print` block plus a small `beforeprint`/`afterprint` script that opens all stations for export and restores their state afterward.
