@@ -112,19 +112,35 @@
     background:#eef0f4;border-radius:6px;padding:3px 8px;margin-left:8px;vertical-align:middle;
   }
 
-  /* "Where to look" orientation callout */
-  .locate{
-    display:flex;gap:12px;align-items:flex-start;
-    background:#fffaf0;
-    border:1px solid #f2e3c4;
+  /* "See it" — Iorad walk-through slot (owns the "where") */
+  .seeit{
+    border:1px solid var(--line);
     border-radius:12px;
-    padding:13px 15px;
-    margin:16px 0 4px;
-    font-size:.95rem;
-    color:#5b4a24;
+    overflow:hidden;
+    margin:16px 0 20px;
+    background:#fbfcfd;
   }
-  .locate .pin{flex:0 0 auto;font-size:1.05rem;line-height:1.5;}
-  .locate strong{color:#3d3116;}
+  .seeit-head{
+    padding:10px 14px;
+    font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--accent);
+    background:var(--accent-soft);
+    border-bottom:1px solid var(--line);
+  }
+  .seeit-slot{padding:12px;}
+  .seeit-slot iframe{display:block;width:100%;border:0;border-radius:8px;}
+  .seeit-ph{
+    margin:0;padding:30px 18px;text-align:center;
+    color:var(--muted);font-size:.9rem;
+    border:1px dashed var(--prompt-border);border-radius:8px;
+    background:repeating-linear-gradient(45deg,#f5f7fa,#f5f7fa 12px,#eef1f6 12px,#eef1f6 24px);
+  }
+  .seeit-cap{
+    margin:0;padding:11px 14px;
+    font-size:.92rem;color:#5c6473;
+    border-top:1px solid var(--line);background:#fff;
+  }
+  .seeit-cap strong{color:var(--ink);}
 
   /* inline icon chips shown next to each function */
   .ico{
@@ -204,6 +220,9 @@
     header.page,.station{box-shadow:none;break-inside:avoid;}
     .station{page-break-inside:avoid;}
     .print-btn,.center,.chev{display:none !important;}
+    /* video area can't print; keep the "where" caption */
+    .seeit-slot{display:none !important;}
+    .seeit{break-inside:avoid;}
     /* reveal collapsed content */
     .station .body{display:block !important;}
     details.station:not([open]) .body{display:block !important;}
@@ -220,7 +239,7 @@
     <h1>Getting Comfortable in Claude</h1>
     <p>A self-paced tour of the Claude interface. Work through the stations in order the first time, then come back to any single one later as a quick reference.</p>
     <div class="how">
-      <strong>How to use this lab:</strong> Each station opens to a short explanation and a prompt you can paste directly into Claude to see the feature in action. Click a station to expand it. When you finish, jot a quick note in the reflection box so you have something to look back on. This lab is about <em>finding your way around</em> Claude — a separate lab covers how to write good prompts.
+      <strong>How to use this lab:</strong> Click a station to open it. Each one starts with a short <strong>“See it” walk-through</strong> that shows you exactly <em>where</em> things are on screen — just watch, nothing to click. Below that is the <em>what &amp; why</em>: a plain explanation and an optional prompt you can paste into Claude to try it yourself. Jot a quick note in the reflection box at the end of each station so you have something to look back on. This lab is about <em>finding your way around</em> Claude — a separate lab covers how to write good prompts.
     </div>
   </header>
 
@@ -237,11 +256,18 @@
       <span class="chev">▾</span>
     </summary>
     <div class="body">
-      <div class="locate">
-        <span class="pin">📍</span>
-        <span><strong>Where to look:</strong> the tall column along the <strong>far left edge</strong> of the screen. That's the sidebar. Nothing you click here can break anything — feel free to hover over each icon and a small label will appear telling you what it is.</span>
+      <div class="seeit">
+        <div class="seeit-head">▶ See it — where to find it</div>
+        <!-- =====================================================================
+             IORAD EMBED — STATION 2: The navigation sidebar
+             Replace the <p class="seeit-ph"> line below with your Iorad embed code.
+             ===================================================================== -->
+        <div class="seeit-slot">
+          <p class="seeit-ph">▶ Iorad walk-through goes here — paste this station's embed code.</p>
+        </div>
+        <p class="seeit-cap"><strong>Where to look:</strong> the tall column along the far left edge of the screen — that's the sidebar. Nothing you click there can break anything.</p>
       </div>
-      <p>From top to bottom, here's what each icon is and what it does:</p>
+      <p>Now the what &amp; why. From top to bottom, here's what each icon is and what it does:</p>
       <ul class="icons">
         <li>
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
@@ -288,9 +314,16 @@ Please go in this order: (1) the New Chat button, (2) my chat history list, (3) 
       <span class="chev">▾</span>
     </summary>
     <div class="body">
-      <div class="locate">
-        <span class="pin">📍</span>
-        <span><strong>Where to look:</strong> the very <strong>bottom of the left sidebar</strong>, where your name or initials appear. Click there and a small menu pops up — choose <strong>Settings</strong> from it.</span>
+      <div class="seeit">
+        <div class="seeit-head">▶ See it — where to find it</div>
+        <!-- =====================================================================
+             IORAD EMBED — STATION 3: Memory & settings
+             Replace the <p class="seeit-ph"> line below with your Iorad embed code.
+             ===================================================================== -->
+        <div class="seeit-slot">
+          <p class="seeit-ph">▶ Iorad walk-through goes here — paste this station's embed code.</p>
+        </div>
+        <p class="seeit-cap"><strong>Where to look:</strong> the very bottom of the left sidebar, where your name or initials appear. Click there and choose Settings.</p>
       </div>
       <p>A few things in Settings are worth knowing.</p>
       <p><strong>Memory</strong> lets Claude carry helpful details from one conversation into the next — things like your role, the courses you teach, or how you like responses formatted — so you don't have to reintroduce yourself each time. You can turn it on or off, and you can review or delete what it has stored. If you'd rather keep every chat completely separate, leave memory off.</p>
@@ -314,6 +347,17 @@ Please go in this order: (1) the New Chat button, (2) my chat history list, (3) 
       <span class="chev">▾</span>
     </summary>
     <div class="body">
+      <div class="seeit">
+        <div class="seeit-head">▶ See it — where to find it</div>
+        <!-- =====================================================================
+             IORAD EMBED — STATION 4: Starting your first chat
+             Replace the <p class="seeit-ph"> line below with your Iorad embed code.
+             ===================================================================== -->
+        <div class="seeit-slot">
+          <p class="seeit-ph">▶ Iorad walk-through goes here — paste this station's embed code.</p>
+        </div>
+        <p class="seeit-cap"><strong>Where to look:</strong> the message box runs along the bottom of the screen; the send arrow sits at its right end.</p>
+      </div>
       <p>Click <strong>New chat</strong>, type into the message box at the bottom, and press <strong>Enter</strong> (or the send arrow) to send. Claude replies just below your message, and the conversation keeps scrolling as you go.</p>
       <ul>
         <li>Press <strong>Shift + Enter</strong> to add a line break without sending — useful for longer messages.</li>
@@ -340,9 +384,16 @@ Please go in this order: (1) the New Chat button, (2) my chat history list, (3) 
       <span class="chev">▾</span>
     </summary>
     <div class="body">
-      <div class="locate">
-        <span class="pin">📍</span>
-        <span><strong>Where to look:</strong> the <strong>message box at the bottom of the screen</strong> where you type. Just to its left is a <strong>+</strong> (plus) button. Click it and a small menu of options appears.</span>
+      <div class="seeit">
+        <div class="seeit-head">▶ See it — where to find it</div>
+        <!-- =====================================================================
+             IORAD EMBED — STATION 5: The plus (+) menu
+             Replace the <p class="seeit-ph"> line below with your Iorad embed code.
+             ===================================================================== -->
+        <div class="seeit-slot">
+          <p class="seeit-ph">▶ Iorad walk-through goes here — paste this station's embed code.</p>
+        </div>
+        <p class="seeit-cap"><strong>Where to look:</strong> the message box at the bottom of the screen; the <strong>+</strong> (plus) button sits just to its left.</p>
       </div>
       <p>The <strong>+</strong> button is how you bring things <em>into</em> a conversation rather than just typing.</p>
       <ul>
@@ -370,9 +421,16 @@ Please go in this order: (1) the New Chat button, (2) my chat history list, (3) 
       <span class="chev">▾</span>
     </summary>
     <div class="body">
-      <div class="locate">
-        <span class="pin">📍</span>
-        <span><strong>Where to look:</strong> the current model name is shown as small text — usually <strong>near the bottom of the message box</strong>, and sometimes at the <strong>top of the chat</strong>. It's a word or two you can click, and a menu of models drops down.</span>
+      <div class="seeit">
+        <div class="seeit-head">▶ See it — where to find it</div>
+        <!-- =====================================================================
+             IORAD EMBED — STATION 6: Changing models & effort
+             Replace the <p class="seeit-ph"> line below with your Iorad embed code.
+             ===================================================================== -->
+        <div class="seeit-slot">
+          <p class="seeit-ph">▶ Iorad walk-through goes here — paste this station's embed code.</p>
+        </div>
+        <p class="seeit-cap"><strong>Where to look:</strong> the current model name shows as small text near the bottom of the message box (sometimes at the top of the chat). Click it to open the model menu.</p>
       </div>
       <p>Claude comes in a few models that trade speed for depth:</p>
       <ul>
@@ -399,9 +457,16 @@ Please go in this order: (1) the New Chat button, (2) my chat history list, (3) 
       <span class="chev">▾</span>
     </summary>
     <div class="body">
-      <div class="locate">
-        <span class="pin">📍</span>
-        <span><strong>Where to look:</strong> the <strong>right end of the message box</strong>, near the send arrow. A small <strong>microphone icon</strong> is voice mode. If you don't see one, it may not be available in your current setup.</span>
+      <div class="seeit">
+        <div class="seeit-head">▶ See it — where to find it</div>
+        <!-- =====================================================================
+             IORAD EMBED — STATION 7: Voice mode
+             Replace the <p class="seeit-ph"> line below with your Iorad embed code.
+             ===================================================================== -->
+        <div class="seeit-slot">
+          <p class="seeit-ph">▶ Iorad walk-through goes here — paste this station's embed code.</p>
+        </div>
+        <p class="seeit-cap"><strong>Where to look:</strong> the right end of the message box, near the send arrow — a small microphone icon. If you don't see one, it may not be available in your setup.</p>
       </div>
       <p>Voice mode lets you speak your request out loud instead of typing it — useful when you're thinking out loud, multitasking, or just prefer talking.</p>
       <ul>
@@ -429,9 +494,16 @@ Please go in this order: (1) the New Chat button, (2) my chat history list, (3) 
       <span class="chev">▾</span>
     </summary>
     <div class="body">
-      <div class="locate">
-        <span class="pin">📍</span>
-        <span><strong>Where to look:</strong> the <strong>Projects</strong> item in the left sidebar (the folder icon). Click it to see your projects and a button to create a new one.</span>
+      <div class="seeit">
+        <div class="seeit-head">▶ See it — where to find it</div>
+        <!-- =====================================================================
+             IORAD EMBED — STATION 8: Projects
+             Replace the <p class="seeit-ph"> line below with your Iorad embed code.
+             ===================================================================== -->
+        <div class="seeit-slot">
+          <p class="seeit-ph">▶ Iorad walk-through goes here — paste this station's embed code.</p>
+        </div>
+        <p class="seeit-cap"><strong>Where to look:</strong> the Projects item in the left sidebar (the folder icon). Click it to see your projects and a button to create a new one.</p>
       </div>
       <p>A <strong>Project</strong> is a workspace that groups related conversations and reference files in one place. Think of it like a folder for a single course, committee, or ongoing effort.</p>
       <ul>
@@ -459,9 +531,16 @@ Please go in this order: (1) the New Chat button, (2) my chat history list, (3) 
       <span class="chev">▾</span>
     </summary>
     <div class="body">
-      <div class="locate">
-        <span class="pin">📍</span>
-        <span><strong>Where to look:</strong> nothing to click first here. When Claude makes something substantial, a <strong>panel opens on the right side</strong> of the screen on its own — that panel is the artifact. Your conversation stays on the left.</span>
+      <div class="seeit">
+        <div class="seeit-head">▶ See it — where to find it</div>
+        <!-- =====================================================================
+             IORAD EMBED — STATION 9: Artifacts
+             Replace the <p class="seeit-ph"> line below with your Iorad embed code.
+             ===================================================================== -->
+        <div class="seeit-slot">
+          <p class="seeit-ph">▶ Iorad walk-through goes here — paste this station's embed code.</p>
+        </div>
+        <p class="seeit-cap"><strong>Where to look:</strong> nothing to click first — when Claude makes something substantial, a panel opens on the right side of the screen on its own. That panel is the artifact.</p>
       </div>
       <p>When you ask Claude to create something substantial — a document, a handout, a table, a simple web page — it often opens in that panel beside the chat, called an <strong>Artifact</strong>. This keeps the finished piece separate from the conversation so you can read and work with it comfortably.</p>
       <ul>
@@ -489,9 +568,16 @@ Please go in this order: (1) the New Chat button, (2) my chat history list, (3) 
       <span class="chev">▾</span>
     </summary>
     <div class="body">
-      <div class="locate">
-        <span class="pin">📍</span>
-        <span><strong>Where to look:</strong> the <strong>magnifying glass icon</strong> near the top of the left sidebar. Click it and a search box opens.</span>
+      <div class="seeit">
+        <div class="seeit-head">▶ See it — where to find it</div>
+        <!-- =====================================================================
+             IORAD EMBED — STATION 10: Search past chats
+             Replace the <p class="seeit-ph"> line below with your Iorad embed code.
+             ===================================================================== -->
+        <div class="seeit-slot">
+          <p class="seeit-ph">▶ Iorad walk-through goes here — paste this station's embed code.</p>
+        </div>
+        <p class="seeit-cap"><strong>Where to look:</strong> the magnifying glass icon near the top of the left sidebar. Click it and a search box opens.</p>
       </div>
       <p>Over time your chat history grows, and scrolling isn't always the fastest way back to something. Search jumps you straight to a past conversation.</p>
       <ul>
