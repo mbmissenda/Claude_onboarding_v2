@@ -148,27 +148,23 @@
     overflow:hidden;
   }
   .try-head{
-    display:flex;align-items:center;justify-content:space-between;
+    display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;
     padding:10px 14px;
     font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
     color:var(--accent);
     border-bottom:1px solid var(--prompt-border);
     background:#fff;
   }
-  .copy-btn{
-    border:1px solid var(--prompt-border);
-    background:#fff;color:var(--ink);
-    font-size:.74rem;font-weight:600;
-    padding:5px 11px;border-radius:7px;cursor:pointer;
-    transition:background .15s ease;
+  .try-head .hint{
+    text-transform:none;letter-spacing:0;font-weight:500;
+    color:var(--muted);font-size:.82rem;
   }
-  .copy-btn:hover{background:var(--accent-soft);}
-  .copy-btn.done{color:#1a7f47;border-color:#bfe4cd;background:#eef8f1;}
   .prompt{
     margin:0;padding:14px 16px;
     font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
     font-size:.88rem;line-height:1.5;color:#222b3d;
     white-space:pre-wrap;word-break:break-word;
+    cursor:text;
   }
 
   .reflect{
@@ -207,7 +203,7 @@
     .wrap{max-width:100%;padding:0;}
     header.page,.station{box-shadow:none;break-inside:avoid;}
     .station{page-break-inside:avoid;}
-    .print-btn,.center,.chev,.copy-btn{display:none !important;}
+    .print-btn,.center,.chev{display:none !important;}
     /* reveal collapsed content */
     .station .body{display:block !important;}
     details.station:not([open]) .body{display:block !important;}
@@ -270,8 +266,12 @@
       </ul>
       <p>If the sidebar isn't showing, look for a small <strong>panel icon</strong> in the top-left corner and click it to open the sidebar back up.</p>
       <div class="try">
-        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
-        <p class="prompt">Give me a quick, friendly overview of what each button in your left sidebar does, as if I'm using you for the very first time.</p>
+        <div class="try-head">Start the guided walk-through <span class="hint">— paste this into Claude, then follow along one step at a time</span></div>
+        <p class="prompt">You are my friendly, patient guide to the Claude interface, and I'm a faculty member who is new to this. Please walk me through the left sidebar ONE item at a time — never list everything at once.
+
+For each item: tell me roughly where to look on screen, ask me to find it, and wait for me to tell you what I see or that I found it. Only after I reply, explain in a sentence or two what it does and when I'd use it. Then move to the next item.
+
+Please go in this order: (1) the New Chat button, (2) my chat history list, (3) Projects, (4) Search, (5) my name and settings at the bottom. If I describe something that doesn't match, help me figure out what I'm actually looking at. Start now with the first item and wait for my reply.</p>
       </div>
       <div class="reflect">
         <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
@@ -296,7 +296,7 @@
       <p><strong>Memory</strong> lets Claude carry helpful details from one conversation into the next — things like your role, the courses you teach, or how you like responses formatted — so you don't have to reintroduce yourself each time. You can turn it on or off, and you can review or delete what it has stored. If you'd rather keep every chat completely separate, leave memory off.</p>
       <p>Also worth a look while you're in settings: your <strong>display and appearance</strong> options, and where to manage your account. You don't need to change anything today — the goal is just to know where these controls are.</p>
       <div class="try">
-        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <div class="try-head">Try it in Claude <span class="hint">— select the text below, copy it, and paste into Claude's message box</span></div>
         <p class="prompt">In plain terms, explain what your memory feature does, what kinds of things it might remember about me, and how I stay in control of it.</p>
       </div>
       <div class="reflect">
@@ -322,7 +322,7 @@
       </ul>
       <p>That's all there is to the mechanics. (How to phrase a <em>great</em> request is covered in the prompting lab.)</p>
       <div class="try">
-        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <div class="try-head">Try it in Claude <span class="hint">— select the text below, copy it, and paste into Claude's message box</span></div>
         <p class="prompt">Hi Claude — this is my first time using you. Introduce yourself in a couple of sentences and tell me one useful thing you can help a faculty member with.</p>
       </div>
       <div class="reflect">
@@ -352,7 +352,7 @@
       </ul>
       <p>Once a file is attached, just type your request about it in the same message — for example, "summarize the key points of this."</p>
       <div class="try">
-        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <div class="try-head">Try it in Claude <span class="hint">— select the text below, copy it, and paste into Claude's message box</span></div>
         <p class="prompt">Walk me through what I can attach using the plus (+) button next to the message box, and give me one example of something useful I could do with an uploaded file.</p>
       </div>
       <div class="reflect">
@@ -381,7 +381,7 @@
       </ul>
       <p>Some models also let you dial up the <strong>effort</strong> or "thinking" — asking Claude to reason more carefully before answering. Use more effort for tricky or high-stakes work, and keep it light for simple things. You can switch anytime; there's no wrong choice while you're exploring.</p>
       <div class="try">
-        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <div class="try-head">Try it in Claude <span class="hint">— select the text below, copy it, and paste into Claude's message box</span></div>
         <p class="prompt">Which model am I currently using, and in simple terms, when should I pick a faster model versus a more capable one for my work as an instructor?</p>
       </div>
       <div class="reflect">
@@ -411,7 +411,7 @@
       </ul>
       <p>Availability can vary by device and app version, so if you don't see it, it may not be enabled in your current setup.</p>
       <div class="try">
-        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <div class="try-head">Try it in Claude <span class="hint">— select the text below, copy it, and paste into Claude's message box</span></div>
         <p class="prompt">Tell me how voice mode works and give me one good example of when a busy instructor might prefer talking to you instead of typing.</p>
       </div>
       <div class="reflect">
@@ -441,7 +441,7 @@
       </ul>
       <p>Chats you start inside a project stay grouped there, separate from your general chat history.</p>
       <div class="try">
-        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <div class="try-head">Try it in Claude <span class="hint">— select the text below, copy it, and paste into Claude's message box</span></div>
         <p class="prompt">Explain what a Project is and suggest three projects a faculty member might set up to stay organized across a semester.</p>
       </div>
       <div class="reflect">
@@ -471,7 +471,7 @@
       </ul>
       <p>You don't have to do anything special to trigger one — just ask Claude to write or build something, and an artifact appears when it makes sense.</p>
       <div class="try">
-        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <div class="try-head">Try it in Claude <span class="hint">— select the text below, copy it, and paste into Claude's message box</span></div>
         <p class="prompt">Create a one-page welcome handout for students on the first day of class. Put it in an artifact so I can see how that panel works, then I may ask you to tweak it.</p>
       </div>
       <div class="reflect">
@@ -500,7 +500,7 @@
         <li>Helpful when you know you worked something out before but can't remember which chat it was in.</li>
       </ul>
       <div class="try">
-        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <div class="try-head">Try it in Claude <span class="hint">— select the text below, copy it, and paste into Claude's message box</span></div>
         <p class="prompt">Give me a couple of tips for phrasing a search so I can quickly find an earlier conversation in my chat history.</p>
       </div>
       <div class="reflect">
@@ -552,41 +552,6 @@
 </div>
 
 <script>
-  function flash(btn){
-    var old = btn.getAttribute('data-label') || btn.textContent;
-    btn.setAttribute('data-label', old);
-    btn.textContent = 'Copied ✓';
-    btn.classList.add('done');
-    setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1600);
-  }
-  function fallbackCopy(text, btn){
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.setAttribute('readonly','');
-    ta.style.position = 'fixed';
-    ta.style.top = '-1000px';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    ta.setSelectionRange(0, text.length);
-    var ok = false;
-    try { ok = document.execCommand('copy'); } catch(e) { ok = false; }
-    document.body.removeChild(ta);
-    if (ok) { flash(btn); }
-    else { alert('Copy isn’t available here. Please select the prompt text and copy it manually (Ctrl/Cmd+C).'); }
-  }
-  function copyPrompt(btn){
-    var card = btn.closest('.try');
-    var text = card.querySelector('.prompt').innerText;
-    if (navigator.clipboard && window.isSecureContext){
-      navigator.clipboard.writeText(text).then(
-        function(){ flash(btn); },
-        function(){ fallbackCopy(text, btn); }
-      );
-    } else {
-      fallbackCopy(text, btn);
-    }
-  }
   // Force every station open for printing, restore afterward.
   var _prev = [];
   window.addEventListener('beforeprint', function(){
