@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Skills Lab — Interface Orientation for Faculty</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --ink:#1f2430;
+    --muted:#5c6473;
+    --line:#e2e6ec;
+    --accent:#3b5bdb;
+    --accent-soft:#eef2ff;
+    --prompt-bg:#f2f4f8;
+    --prompt-border:#d7dce4;
+    --radius:16px;
+    --shadow:0 1px 2px rgba(20,28,45,.05),0 6px 18px rgba(20,28,45,.06);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:40px 20px 80px;}
+
+  header.page{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:32px 34px;
+    box-shadow:var(--shadow);
+    margin-bottom:26px;
+  }
+  header.page h1{
+    margin:0 0 8px;
+    font-size:1.75rem;
+    letter-spacing:-.01em;
+  }
+  header.page p{margin:0;color:var(--muted);font-size:1.02rem;}
+  .kicker{
+    display:inline-block;
+    font-size:.72rem;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .how{
+    margin-top:20px;
+    padding:16px 18px;
+    background:var(--accent-soft);
+    border-radius:12px;
+    font-size:.94rem;
+    color:#2a3550;
+  }
+  .how strong{color:var(--ink);}
+
+  .station{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    margin-bottom:16px;
+    overflow:hidden;
+  }
+  .station > summary{
+    list-style:none;
+    cursor:pointer;
+    padding:20px 24px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    user-select:none;
+  }
+  .station > summary::-webkit-details-marker{display:none;}
+  .num{
+    flex:0 0 auto;
+    width:38px;height:38px;
+    border-radius:11px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    font-weight:700;
+    font-size:1.02rem;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .stitle{flex:1;font-weight:650;font-size:1.12rem;}
+  .stitle small{display:block;font-weight:400;color:var(--muted);font-size:.86rem;margin-top:2px;}
+  .chev{
+    flex:0 0 auto;color:var(--muted);
+    transition:transform .2s ease;
+  }
+  .station[open] .chev{transform:rotate(180deg);}
+  .body{
+    padding:4px 24px 24px;
+    border-top:1px solid var(--line);
+    margin-top:-1px;
+  }
+  .body p{margin:16px 0;}
+  .body ul{margin:14px 0;padding-left:22px;}
+  .body li{margin:6px 0;}
+  .tag{
+    display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--muted);
+    background:#eef0f4;border-radius:6px;padding:3px 8px;margin-left:8px;vertical-align:middle;
+  }
+
+  .try{
+    margin:18px 0 6px;
+    border:1px solid var(--prompt-border);
+    border-radius:12px;
+    background:var(--prompt-bg);
+    overflow:hidden;
+  }
+  .try-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 14px;
+    font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--accent);
+    border-bottom:1px solid var(--prompt-border);
+    background:#fff;
+  }
+  .copy-btn{
+    border:1px solid var(--prompt-border);
+    background:#fff;color:var(--ink);
+    font-size:.74rem;font-weight:600;
+    padding:5px 11px;border-radius:7px;cursor:pointer;
+    transition:background .15s ease;
+  }
+  .copy-btn:hover{background:var(--accent-soft);}
+  .copy-btn.done{color:#1a7f47;border-color:#bfe4cd;background:#eef8f1;}
+  .prompt{
+    margin:0;padding:14px 16px;
+    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    font-size:.88rem;line-height:1.5;color:#222b3d;
+    white-space:pre-wrap;word-break:break-word;
+  }
+
+  .reflect{
+    margin-top:20px;padding-top:18px;border-top:1px dashed var(--line);
+  }
+  .reflect label{
+    display:block;font-weight:600;font-size:.92rem;margin-bottom:8px;
+  }
+  .reflect label span{color:var(--muted);font-weight:400;}
+  .reflect textarea{
+    width:100%;min-height:64px;resize:vertical;
+    border:1px solid var(--line);border-radius:10px;
+    padding:11px 13px;font:inherit;font-size:.95rem;color:var(--ink);
+    background:#fbfcfd;
+  }
+  .reflect textarea:focus{outline:2px solid var(--accent-soft);border-color:var(--accent);}
+
+  footer.page{
+    text-align:center;color:var(--muted);font-size:.85rem;margin-top:34px;
+  }
+  .print-hint{
+    text-align:center;margin-top:6px;font-size:.85rem;color:var(--muted);
+  }
+  .print-btn{
+    display:inline-block;margin:0 auto;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);
+    font-size:.9rem;font-weight:600;padding:9px 18px;border-radius:10px;cursor:pointer;
+    box-shadow:var(--shadow);
+  }
+  .print-btn:hover{background:var(--accent-soft);}
+  .center{text-align:center;margin-bottom:26px;}
+
+  /* ---- PRINT: force every station open, hide chrome ---- */
+  @media print{
+    body{background:#fff;}
+    .wrap{max-width:100%;padding:0;}
+    header.page,.station{box-shadow:none;break-inside:avoid;}
+    .station{page-break-inside:avoid;}
+    .print-btn,.center,.chev,.copy-btn{display:none !important;}
+    /* reveal collapsed content */
+    .station .body{display:block !important;}
+    details.station:not([open]) .body{display:block !important;}
+    .try-head{color:#333;}
+    a{color:inherit;text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page">
+    <span class="kicker">Faculty Skills Lab</span>
+    <h1>Getting Comfortable in Claude</h1>
+    <p>A self-paced tour of the Claude interface. Work through the stations in order the first time, then come back to any single one later as a quick reference.</p>
+    <div class="how">
+      <strong>How to use this lab:</strong> Each station opens to a short explanation and a prompt you can paste directly into Claude to see the feature in action. Click a station to expand it. When you finish, jot a quick note in the reflection box so you have something to look back on. This lab is about <em>finding your way around</em> Claude — a separate lab covers how to write good prompts.
+    </div>
+  </header>
+
+  <div class="center">
+    <button class="print-btn" onclick="window.print()">🖨️ Save this lab as a PDF</button>
+    <div class="print-hint">Printing expands every station automatically, including your reflection notes.</div>
+  </div>
+
+  <!-- STATION 2 -->
+  <details class="station" open>
+    <summary>
+      <span class="num">2</span>
+      <span class="stitle">The navigation sidebar<small>Find your way around the left-hand menu</small></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>Everything you'll use lives on the left. Take a moment to notice each piece:</p>
+      <ul>
+        <li><strong>New chat</strong> — starts a fresh conversation. Every question begins here.</li>
+        <li><strong>Chat history</strong> — the running list of your past conversations, newest at the top. Click any one to reopen it exactly where you left off.</li>
+        <li><strong>Projects</strong> — folders that keep related chats and files together (its own station below).</li>
+        <li><strong>Search</strong> — a magnifying glass to find something you discussed before (also its own station).</li>
+        <li><strong>Your name / settings gear</strong> — bottom of the sidebar. This is where account settings, memory, and preferences live.</li>
+      </ul>
+      <p>If the sidebar is collapsed, look for the small panel icon in the top-left corner to open it back up.</p>
+      <div class="try">
+        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <p class="prompt">Give me a quick, friendly overview of what each button in your left sidebar does, as if I'm using you for the very first time.</p>
+      </div>
+      <div class="reflect">
+        <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
+        <textarea placeholder="e.g. My past chats are all saved automatically in the sidebar…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <!-- STATION 3 -->
+  <details class="station">
+    <summary>
+      <span class="num">3</span>
+      <span class="stitle">Memory &amp; settings<small>What Claude remembers, and how to control it</small></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>Open <strong>Settings</strong> from the gear or your name at the bottom of the sidebar. A few things are worth knowing here.</p>
+      <p><strong>Memory</strong> lets Claude carry helpful details from one conversation into the next — things like your role, the courses you teach, or how you like responses formatted — so you don't have to reintroduce yourself each time. You can turn it on or off, and you can review or delete what it has stored. If you'd rather keep every chat completely separate, leave memory off.</p>
+      <p>Also worth a look while you're in settings: your <strong>display and appearance</strong> options, and where to manage your account. You don't need to change anything today — the goal is just to know where these controls are.</p>
+      <div class="try">
+        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <p class="prompt">In plain terms, explain what your memory feature does, what kinds of things it might remember about me, and how I stay in control of it.</p>
+      </div>
+      <div class="reflect">
+        <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
+        <textarea placeholder="Write a sentence or two…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <!-- STATION 4 -->
+  <details class="station">
+    <summary>
+      <span class="num">4</span>
+      <span class="stitle">Starting your first chat<small>The mechanics of sending a message</small></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>Click <strong>New chat</strong>, type into the message box at the bottom, and press <strong>Enter</strong> (or the send arrow) to send. Claude replies just below your message, and the conversation keeps scrolling as you go.</p>
+      <ul>
+        <li>Press <strong>Shift + Enter</strong> to add a line break without sending — useful for longer messages.</li>
+        <li>You can keep the back-and-forth going; Claude remembers everything said <em>within</em> that conversation.</li>
+        <li>Start a <strong>New chat</strong> whenever you switch to an unrelated topic — it keeps things tidy and focused.</li>
+      </ul>
+      <p>That's all there is to the mechanics. (How to phrase a <em>great</em> request is covered in the prompting lab.)</p>
+      <div class="try">
+        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <p class="prompt">Hi Claude — this is my first time using you. Introduce yourself in a couple of sentences and tell me one useful thing you can help a faculty member with.</p>
+      </div>
+      <div class="reflect">
+        <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
+        <textarea placeholder="Write a sentence or two…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <!-- STATION 5 -->
+  <details class="station">
+    <summary>
+      <span class="num">5</span>
+      <span class="stitle">The plus (+) menu<small>Add files and more to a message</small></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>Next to the message box you'll see a <strong>+</strong> button. This is how you bring things <em>into</em> a conversation rather than just typing.</p>
+      <ul>
+        <li><strong>Upload a file</strong> — a PDF, Word document, spreadsheet, slide deck, or image. Claude can then read, summarize, or work from it.</li>
+        <li><strong>Add a photo or screenshot</strong> — handy for asking about something you can see but can't easily type out.</li>
+        <li>Depending on your setup, you may also see options to connect other tools here.</li>
+      </ul>
+      <p>Once a file is attached, just type your request about it in the same message — for example, "summarize the key points of this."</p>
+      <div class="try">
+        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <p class="prompt">Walk me through what I can attach using the plus (+) button next to the message box, and give me one example of something useful I could do with an uploaded file.</p>
+      </div>
+      <div class="reflect">
+        <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
+        <textarea placeholder="Write a sentence or two…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <!-- STATION 6 -->
+  <details class="station">
+    <summary>
+      <span class="num">6</span>
+      <span class="stitle">Changing models &amp; effort<small>Pick how Claude thinks about a task</small></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>Near the top of the chat (and by the message box) you'll find a small menu showing the current <strong>model</strong>. Claude comes in a few models that trade speed for depth:</p>
+      <ul>
+        <li>Lighter, faster models are great for quick questions and everyday tasks.</li>
+        <li>More capable models take a little longer but handle complex reasoning, nuanced writing, and harder problems better.</li>
+      </ul>
+      <p>Some models also let you dial up the <strong>effort</strong> or "thinking" — asking Claude to reason more carefully before answering. Use more effort for tricky or high-stakes work, and keep it light for simple things. You can switch anytime; there's no wrong choice while you're exploring.</p>
+      <div class="try">
+        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <p class="prompt">Which model am I currently using, and in simple terms, when should I pick a faster model versus a more capable one for my work as an instructor?</p>
+      </div>
+      <div class="reflect">
+        <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
+        <textarea placeholder="Write a sentence or two…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <!-- STATION 7 -->
+  <details class="station">
+    <summary>
+      <span class="num">7</span>
+      <span class="stitle">Voice mode<small>Talk to Claude instead of typing</small></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>Look for a <strong>microphone or voice icon</strong> near the message box. Voice mode lets you speak your request out loud instead of typing it — useful when you're thinking out loud, multitasking, or just prefer talking.</p>
+      <ul>
+        <li>Tap the voice icon and allow microphone access the first time.</li>
+        <li>Speak naturally; Claude transcribes what you say and responds.</li>
+        <li>You can switch back to typing at any point in the same conversation.</li>
+      </ul>
+      <p>Availability can vary by device and app version, so if you don't see it, it may not be enabled in your current setup.</p>
+      <div class="try">
+        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <p class="prompt">Tell me how voice mode works and give me one good example of when a busy instructor might prefer talking to you instead of typing.</p>
+      </div>
+      <div class="reflect">
+        <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
+        <textarea placeholder="Write a sentence or two…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <!-- STATION 8 -->
+  <details class="station">
+    <summary>
+      <span class="num">8</span>
+      <span class="stitle">Projects<small>Keep related chats and files together</small></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>A <strong>Project</strong> is a workspace that groups related conversations and reference files in one place. Think of it like a folder for a single course, committee, or ongoing effort.</p>
+      <ul>
+        <li>Create one from <strong>Projects</strong> in the sidebar, give it a name, and start chatting inside it.</li>
+        <li>Add reference files or standing instructions once, and every chat in that project can draw on them — no need to re-upload each time.</li>
+        <li>Great for anything you return to repeatedly, like a course you teach each term.</li>
+      </ul>
+      <p>Chats you start inside a project stay grouped there, separate from your general chat history.</p>
+      <div class="try">
+        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <p class="prompt">Explain what a Project is and suggest three projects a faculty member might set up to stay organized across a semester.</p>
+      </div>
+      <div class="reflect">
+        <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
+        <textarea placeholder="Write a sentence or two…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <!-- STATION 9 -->
+  <details class="station">
+    <summary>
+      <span class="num">9</span>
+      <span class="stitle">Artifacts<small>When Claude builds something you can open and edit</small></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>When you ask Claude to create something substantial — a document, a handout, a table, a simple web page — it often opens in a panel beside the chat called an <strong>Artifact</strong>. This keeps the finished piece separate from the conversation so you can read and work with it comfortably.</p>
+      <ul>
+        <li>The artifact appears to the right; your chat stays on the left.</li>
+        <li>Ask for changes in the chat and the artifact updates in place.</li>
+        <li>You can usually copy or download it to use elsewhere.</li>
+      </ul>
+      <p>You don't have to do anything special to trigger one — just ask Claude to write or build something, and an artifact appears when it makes sense.</p>
+      <div class="try">
+        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <p class="prompt">Create a one-page welcome handout for students on the first day of class. Put it in an artifact so I can see how that panel works, then I may ask you to tweak it.</p>
+      </div>
+      <div class="reflect">
+        <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
+        <textarea placeholder="Write a sentence or two…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <!-- STATION 10 -->
+  <details class="station">
+    <summary>
+      <span class="num">10</span>
+      <span class="stitle">Search past chats<small>Find something you discussed before</small></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>Over time your chat history grows, and scrolling isn't always the fastest way back to something. Use <strong>Search</strong> (the magnifying glass in the sidebar) to jump straight to a past conversation.</p>
+      <ul>
+        <li>Type a word or phrase you remember using, and matching chats appear.</li>
+        <li>Click a result to reopen that conversation right where it was.</li>
+        <li>Helpful when you know you worked something out before but can't remember which chat it was in.</li>
+      </ul>
+      <div class="try">
+        <div class="try-head">Try it in Claude<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+        <p class="prompt">Give me a couple of tips for phrasing a search so I can quickly find an earlier conversation in my chat history.</p>
+      </div>
+      <div class="reflect">
+        <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
+        <textarea placeholder="Write a sentence or two…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <!-- STATION 11 -->
+  <details class="station">
+    <summary>
+      <span class="num">11</span>
+      <span class="stitle">Claude Design<small>A quick heads-up — full training to come</small><span class="tag">Preview</span></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>You may come across <strong>Claude Design</strong> — a set of tools for creating more polished visual and design-oriented work. It's worth knowing the name so it's familiar when you see it.</p>
+      <p>We're intentionally keeping this brief for now. Claude Design will get its own dedicated training session down the road, so there's nothing you need to learn here today — just file it away as "coming soon."</p>
+      <div class="reflect">
+        <label>Anything you'd like the future Claude Design session to cover? <span>(optional)</span></label>
+        <textarea placeholder="Optional — a topic or question for the future session…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <!-- STATION 12 -->
+  <details class="station">
+    <summary>
+      <span class="num">12</span>
+      <span class="stitle">Cowork<small>When you'd reach for it instead of a regular chat</small><span class="tag">Stretch</span></span>
+      <span class="chev">▾</span>
+    </summary>
+    <div class="body">
+      <p>A regular chat is perfect for questions, drafting, and back-and-forth. <strong>Cowork</strong> is a different mode for when you want Claude to actually <em>work with the files on your computer</em> — reading a folder of documents, organizing files, or producing finished files you can open directly.</p>
+      <p>The simplest way to think about it: reach for a <strong>chat</strong> when you want to talk something through, and reach for <strong>Cowork</strong> when you want hands-on help with real files and multi-step tasks. You don't need to master this today — just know it exists and what it's for.</p>
+      <p>If there's interest, Marybeth will host a separate live session focused just on Cowork.</p>
+      <div class="reflect">
+        <label>One thing I learned at this station <span>(saved when you print to PDF)</span></label>
+        <textarea placeholder="Write a sentence or two…"></textarea>
+      </div>
+    </div>
+  </details>
+
+  <footer class="page">
+    You've reached the end of the lab. Return to any station anytime — this page is yours to keep as a reference.
+  </footer>
+
+</div>
+
+<script>
+  function copyPrompt(btn){
+    var card = btn.closest('.try');
+    var text = card.querySelector('.prompt').innerText;
+    navigator.clipboard.writeText(text).then(function(){
+      var old = btn.textContent;
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1600);
+    });
+  }
+  // Force every station open for printing, restore afterward.
+  var _prev = [];
+  window.addEventListener('beforeprint', function(){
+    _prev = [];
+    document.querySelectorAll('details.station').forEach(function(d){
+      _prev.push(d.open); d.open = true;
+    });
+  });
+  window.addEventListener('afterprint', function(){
+    document.querySelectorAll('details.station').forEach(function(d,i){
+      d.open = _prev[i];
+    });
+  });
+</script>
+</body>
+</html>
